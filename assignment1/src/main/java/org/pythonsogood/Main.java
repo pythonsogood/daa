@@ -13,6 +13,6 @@ public class Main {
 		}
 
 		System.out.println(array);
-		System.out.println(QuickSort.sort(array));
+		System.out.println(DeterministicSelect.select(array));
     }
 }
