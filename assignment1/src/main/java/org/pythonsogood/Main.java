@@ -9,7 +9,8 @@ public class Main {
 		ArrayList<Integer> array = new ArrayList<>();
 
 		for (int i = 0; i < 10; i++) {
-			array.add(random.nextInt(10));
+			// array.add(random.nextInt(10));
+			array.add(i);
 		}
 
 		System.out.println(array);
