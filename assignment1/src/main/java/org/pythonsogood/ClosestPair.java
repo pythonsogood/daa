@@ -22,6 +22,21 @@ public class ClosestPair {
 		public String toString() {
 			return String.format("(%s, %s) %s", this.a, this.b, this.distance());
 		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (o == this) {
+				return true;
+			}
+
+			if (!(o instanceof Pair)) {
+				return false;
+			}
+
+			Pair pair = (Pair) o;
+
+			return (pair.a.equals(this.a) && pair.b.equals(this.b)) || (pair.a.equals(this.b) && pair.b.equals(this.a));
+		}
 	}
 
 	private static Pair recursive(Point[] points, Point[] points2, int left, int right) {

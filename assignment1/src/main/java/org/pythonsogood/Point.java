@@ -17,4 +17,19 @@ public class Point {
 	public String toString() {
 		return String.format("(%s, %s)", this.x, this.y);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+
+		if (!(o instanceof Point)) {
+			return false;
+		}
+
+		Point point = (Point) o;
+
+		return point.x == this.x && point.y == this.y;
+	}
 }
