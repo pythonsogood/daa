@@ -1,6 +1,9 @@
-package org.pythonsogood;
+package algorithms;
 
 import java.util.List;
+
+import metrics.PerformanceTracker;
+
 import java.util.Arrays;
 
 public class SelectionSort {
@@ -11,17 +14,20 @@ public class SelectionSort {
 			int minIndex = i;
 
 			for (int j=i + 1; j<n; j++) {
-				Main.metricEnter(0);
+				PerformanceTracker.addComparison();
 
-				Main.metricEnter(2);
-				Main.metricEnter(2);
+				PerformanceTracker.addArrayAccess();
+				PerformanceTracker.addArrayAccess();
 
 				if (array[j] < array[minIndex]) {
 					minIndex = j;
 				}
 			}
 
-			Main.metricEnter(1);
+			PerformanceTracker.addArrayAccess();
+			PerformanceTracker.addArrayAccess();
+
+			PerformanceTracker.addMemoryAllocation();
 
 			int temp = array[minIndex];
 			array[minIndex] = array[i];

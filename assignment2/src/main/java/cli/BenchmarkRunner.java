@@ -1,27 +1,15 @@
-package org.pythonsogood;
+package cli;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Main {
-	// {Comparisons, swaps, array accesses, memory allocations}
-	private static long[] metrics = {0, 0, 0, 0};
+import algorithms.Main;
+import algorithms.SelectionSort;
 
-	public static void metricEnter(int x) {
-		Main.metrics[x]++;
-	}
-
-	public static void metricsReset() {
-		for (int x=0; x<4; x++) {
-			Main.metrics[x] = 0;
-		}
-	}
-
-	public static long getMetric(int x) {
-		return Main.metrics[x];
-	}
-
+public class BenchmarkRunner {
 	public static ArrayList<Integer> createRandomIntArray(int min, int max, int size) {
 		ArrayList<Integer> array = new ArrayList<Integer>();
 		Random random = new Random();
@@ -41,19 +29,27 @@ public class Main {
 		return createRandomIntArray(0, 100, size);
 	}
 
-    public static void main(String[] args) {
-		for (int n=0; n<1000; n++) {
+	public static void main(String[] args) throws IOException {
+		int[] sizes = {100, 1000, 10000, 100000};
+
+		FileWriter writer = new FileWriter("metrics.csv");
+
+		writer.write("size,time,comparisons,swaps,array_accesses,memory_allocations\n");
+
+		for (int n : sizes) {
 			Main.metricsReset();
 
 			List<Integer> array = createRandomIntArray(n);
 
 			long startTime = System.nanoTime();
 
-			List<Integer> sortedArray = SelectionSort.sort(array);
+			SelectionSort.sort(array);
 
 			long endTime = System.nanoTime();
 
-			System.out.println(String.format("%s | %s | %s | %s | %s | %s", n, endTime - startTime, Main.getMetric(0), Main.getMetric(1), Main.getMetric(2), Main.getMetric(3)));
+			writer.write(String.format("%s,%s,%s,%s,%s,%s\n", n, endTime - startTime, Main.getMetric(0), Main.getMetric(1), Main.getMetric(2), Main.getMetric(3)));
 		}
+
+		writer.close();
     }
 }
