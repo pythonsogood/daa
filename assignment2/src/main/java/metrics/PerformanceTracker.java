@@ -1,14 +1,14 @@
 package metrics;
 
-import java.lang.instrument.Instrumentation;
-
 public class PerformanceTracker {
-	private static Instrumentation instrumentation = new Instrumentation() {};
+	public static long INT_SIZE = 4;
+	public static long BOOLEAN_SIZE = 1;
 
 	private static int comparisons = 0;
 	private static int swaps = 0;
 	private static int arrayAccesses = 0;
 	private static long memoryAllocations = 0;
+	private static long maxMemoryAllocations = 0;
 
 	public static void addComparison() {
 		PerformanceTracker.comparisons++;
@@ -22,8 +22,12 @@ public class PerformanceTracker {
 		PerformanceTracker.arrayAccesses++;
 	}
 
-	public static long addMemoryAllocation(Object object) {
+	public static void addMemoryAllocation(long size) {
 		PerformanceTracker.memoryAllocations += size;
+
+		if (PerformanceTracker.memoryAllocations > PerformanceTracker.maxMemoryAllocations) {
+			PerformanceTracker.maxMemoryAllocations = PerformanceTracker.memoryAllocations;
+		}
 	}
 
 	public static void removeMemoryAllocation(long size) {
@@ -35,6 +39,7 @@ public class PerformanceTracker {
 		PerformanceTracker.swaps = 0;
 		PerformanceTracker.arrayAccesses = 0;
 		PerformanceTracker.memoryAllocations = 0;
+		PerformanceTracker.maxMemoryAllocations = 0;
 	}
 
 	public static int getComparisons() {
@@ -51,5 +56,9 @@ public class PerformanceTracker {
 
 	public static long getMemoryAllocations() {
 		return PerformanceTracker.memoryAllocations;
+	}
+
+	public static long getMaxMemoryAllocations() {
+		return PerformanceTracker.maxMemoryAllocations;
 	}
 }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import algorithms.Main;
 import algorithms.SelectionSort;
+import metrics.PerformanceTracker;
 
 public class BenchmarkRunner {
 	public static ArrayList<Integer> createRandomIntArray(int min, int max, int size) {
@@ -34,10 +34,10 @@ public class BenchmarkRunner {
 
 		FileWriter writer = new FileWriter("metrics.csv");
 
-		writer.write("size,time,comparisons,swaps,array_accesses,memory_allocations\n");
+		writer.write("algorithm,n,time_ns,comparisons,swaps,array_accesses,memory_allocations\n");
 
 		for (int n : sizes) {
-			Main.metricsReset();
+			PerformanceTracker.reset();
 
 			List<Integer> array = createRandomIntArray(n);
 
@@ -47,7 +47,17 @@ public class BenchmarkRunner {
 
 			long endTime = System.nanoTime();
 
-			writer.write(String.format("%s,%s,%s,%s,%s,%s\n", n, endTime - startTime, Main.getMetric(0), Main.getMetric(1), Main.getMetric(2), Main.getMetric(3)));
+			writer.write(String.format("SelectionSort,%s,%s,%s,%s,%s,%s\n", n, endTime - startTime, PerformanceTracker.getComparisons(), PerformanceTracker.getSwaps(), PerformanceTracker.getArrayAccesses(), PerformanceTracker.getMaxMemoryAllocations()));
+
+			PerformanceTracker.reset();
+
+			startTime = System.nanoTime();
+
+			SelectionSort.sortOptimized(array);
+
+			endTime = System.nanoTime();
+
+			writer.write(String.format("SelectionSort (optimized),%s,%s,%s,%s,%s,%s\n", n, endTime - startTime, PerformanceTracker.getComparisons(), PerformanceTracker.getSwaps(), PerformanceTracker.getArrayAccesses(), PerformanceTracker.getMaxMemoryAllocations()));
 		}
 
 		writer.close();

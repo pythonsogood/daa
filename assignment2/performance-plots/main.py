@@ -4,7 +4,10 @@ import matplotlib.pyplot
 
 df = pandas.read_csv("../metrics.csv")
 
-matplotlib.pyplot.plot(df["size"], df["time"], label="Selection Sort")
+for algo in df["algorithm"].unique():
+	sub = df[df["algorithm"] == algo]
+	matplotlib.pyplot.plot(sub["n"], sub["time_ns"], label=algo)
+	print(sub["time_ns"])
 
 matplotlib.pyplot.xlabel("Input size (n)")
 matplotlib.pyplot.ylabel("Time (ns)")
