@@ -58,6 +58,28 @@ public class BenchmarkRunner {
 			endTime = System.nanoTime();
 
 			writer.write(String.format("SelectionSort (optimized),%s,%s,%s,%s,%s,%s\n", n, endTime - startTime, PerformanceTracker.getComparisons(), PerformanceTracker.getSwaps(), PerformanceTracker.getArrayAccesses(), PerformanceTracker.getMaxMemoryAllocations()));
+
+			PerformanceTracker.reset();
+
+			array.sort(null);
+
+			startTime = System.nanoTime();
+
+			SelectionSort.sort(array);
+
+			endTime = System.nanoTime();
+
+			writer.write(String.format("SelectionSort best case,%s,%s,%s,%s,%s,%s\n", n, endTime - startTime, PerformanceTracker.getComparisons(), PerformanceTracker.getSwaps(), PerformanceTracker.getArrayAccesses(), PerformanceTracker.getMaxMemoryAllocations()));
+
+			PerformanceTracker.reset();
+
+			startTime = System.nanoTime();
+
+			SelectionSort.sortOptimized(array);
+
+			endTime = System.nanoTime();
+
+			writer.write(String.format("SelectionSort (optimized) best case,%s,%s,%s,%s,%s,%s\n", n, endTime - startTime, PerformanceTracker.getComparisons(), PerformanceTracker.getSwaps(), PerformanceTracker.getArrayAccesses(), PerformanceTracker.getMaxMemoryAllocations()));
 		}
 
 		writer.close();

@@ -1,9 +1,17 @@
 algorithm,n,time_ns,comparisons,swaps,array_accesses,memory_allocations
-SelectionSort,100,5322100,4950,0,10100,12
-SelectionSort (optimized),100,271400,4950,0,10100,13
-SelectionSort,1000,2356700,499500,0,1001000,12
-SelectionSort (optimized),1000,2350400,499500,0,1001000,13
-SelectionSort,10000,28698600,49995000,0,100010000,12
-SelectionSort (optimized),10000,28598100,49995000,0,100010000,13
-SelectionSort,100000,2967019800,704982704,0,1410165408,12
-SelectionSort (optimized),100000,2992815300,704982704,0,1410165408,13
+SelectionSort,100,14871700,4950,0,10100,12
+SelectionSort (optimized),100,777500,4950,0,10100,13
+SelectionSort best case,100,366000,4950,0,10100,12
+SelectionSort (optimized) best case,100,49100,0,0,0,5
+SelectionSort,1000,7774600,499500,0,1001000,12
+SelectionSort (optimized),1000,7572000,499500,0,1001000,13
+SelectionSort best case,1000,1652000,499500,0,1001000,12
+SelectionSort (optimized) best case,1000,166700,0,0,0,5
+SelectionSort,10000,131350600,49995000,0,100010000,12
+SelectionSort (optimized),10000,108892600,49995000,0,100010000,13
+SelectionSort best case,10000,117483500,49995000,0,100010000,12
+SelectionSort (optimized) best case,10000,782000,0,0,0,5
+SelectionSort,100000,11371773700,704982704,0,1410165408,12
+SelectionSort (optimized),100000,10936150200,704982704,0,1410165408,13
+SelectionSort best case,100000,11022186500,704982704,0,1410165408,12
+SelectionSort (optimized) best case,100000,608700,0,0,0,5
