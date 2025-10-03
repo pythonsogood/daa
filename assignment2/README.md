@@ -2,7 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/license/mit/)
 
-## Overview
+## Time vs N plot
+
+![time_vs_n](/assignment2/performance-plots/time_vs_n.png)
 
 ## Requirements
 
