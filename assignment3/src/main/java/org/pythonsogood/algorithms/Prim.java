@@ -34,9 +34,9 @@ public class Prim {
 			int v = vertexMap.get(e.to);
 			matrix[u][v] = e.weight;
 			matrix[v][u] = e.weight;
-
-			Prim.operations += 4;
 		}
+
+		Prim.operations++;
 
 		int[] parent = new int[vertexCount];
 		int[] key = new int[vertexCount];
@@ -45,14 +45,10 @@ public class Prim {
 		for (int i=0; i<vertexCount; i++) {
 			key[i] = Integer.MAX_VALUE;
 			mstSet[i] = false;
-
-			Prim.operations += 2;
 		}
 
 		key[0] = 0;
 		parent[0] = -1;
-
-		Prim.operations += 2;
 
 		for (int count=0; count < vertexCount - 1; count++) {
 			int u = Prim.minKey(key, mstSet);
@@ -68,14 +64,20 @@ public class Prim {
 			Prim.operations++;
 
 			for (int v=0; v<vertexCount; v++) {
-				if (matrix[u][v] != 0 && mstSet[v] == false && matrix[u][v] < key[v]) {
+				Prim.operations++;
+
+				if (matrix[u][v] == 0) {
+					continue;
+				}
+
+				if (mstSet[v] == false && matrix[u][v] < key[v]) {
 					parent[v] = u;
 					key[v] = matrix[u][v];
 
-					Prim.operations += 3;
+					Prim.operations++;
 				}
 
-				Prim.operations += 9;
+				Prim.operations += 2;
 			}
 		}
 
@@ -101,11 +103,9 @@ public class Prim {
 			if (mstSet[v] == false && key[v] < min) {
 				min = key[v];
 				minIndex = v;
-
-				Prim.operations += 3;
 			}
 
-			Prim.operations += 4;
+			Prim.operations += 2;
 		}
 
 		return minIndex;

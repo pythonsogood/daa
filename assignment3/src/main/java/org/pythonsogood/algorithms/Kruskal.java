@@ -20,7 +20,6 @@ public class Kruskal {
 		Kruskal.operations = 0;
 
 		int vertexCount = graph.vertices.size();
-		int edgeCount = graph.edges.size();
 
 		HashMap<String, Integer> vertexMap = new HashMap<>();
 
@@ -30,10 +29,11 @@ public class Kruskal {
 		}
 
 		List<Edge> edges = new ArrayList<>(graph.edges);
-		edges.sort((Edge e1, Edge e2) -> e1.weight - e2.weight);
+		edges.sort((Edge e1, Edge e2) -> {
+			Kruskal.operations++;
 
-		// edges.sort() ~ O(n log(n))
-		Kruskal.operations += edgeCount * Math.log(edgeCount) / Math.log(2);
+			return e1.weight - e2.weight;
+		});
 
 		DSU dsu = new DSU(vertexCount);
 
@@ -43,13 +43,9 @@ public class Kruskal {
 			int x = vertexMap.get(e.from);
 			int y = vertexMap.get(e.to);
 
-			Kruskal.operations += 2;
-
 			if (dsu.find(x) != dsu.find(y)) {
 				dsu.union(x, y);
 				mst.add(e);
-
-				Kruskal.operations += 2;
 
 				if (mst.size() == vertexCount - 1) {
 					break;
@@ -71,45 +67,33 @@ public class Kruskal {
 			for (int i=0; i<size; i++) {
 				this.parent[i] = i;
 				this.rank[i] = 1;
-
-				Kruskal.operations += 2;
 			}
 		}
 
 		public int find(int i) {
+			Kruskal.operations++;
+
 			if (parent[i] != i) {
 				parent[i] = this.find(parent[i]);
-
-				Kruskal.operations += 2;
 			}
-
-			Kruskal.operations =+ 2;
 
 			return parent[i];
 		}
 
 		public void union(int x, int y) {
+			Kruskal.operations++;
+
 			int s1 = this.find(x);
 			int s2 = this.find(y);
 
-			Kruskal.operations++;
-
 			if (s1 != s2) {
-				Kruskal.operations += 4;
-
 				if (this.rank[s1] < this.rank[s2]) {
 					this.parent[s1] = s2;
-
-					Kruskal.operations++;
 				} else if (this.rank[s1] > this.rank[s2]) {
 					this.parent[s2] = s1;
-
-					Kruskal.operations += 4;
 				} else {
 					this.parent[s2] = s1;
 					this.rank[s2]++;
-
-					Kruskal.operations += 3;
 				}
 			}
 		}
