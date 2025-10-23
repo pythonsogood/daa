@@ -1,6 +1,8 @@
-package org.pythonsogood;
+package org.pythonsogood.graph;
 
 import java.util.List;
+
+import org.pythonsogood.models.EdgeJson;
 
 public class Edge {
 	public String from;
@@ -33,7 +35,7 @@ public class Edge {
 		}
 	}
 
-	static int getCost(List<Edge> edges) {
+	static public int getCost(List<Edge> edges) {
 		int cost = 0;
 
 		for (Edge e : edges) {

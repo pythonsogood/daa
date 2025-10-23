@@ -1,7 +1,10 @@
-package org.pythonsogood;
+package org.pythonsogood.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.pythonsogood.models.EdgeJson;
+import org.pythonsogood.models.GraphJson;
 
 public class Graph {
 	public List<Vertex> vertices;

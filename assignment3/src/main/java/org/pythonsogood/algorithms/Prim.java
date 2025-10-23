@@ -1,23 +1,17 @@
 package org.pythonsogood.algorithms;
 
-import org.pythonsogood.Graph;
-import org.pythonsogood.Vertex;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.pythonsogood.Edge;
+import org.pythonsogood.graph.Edge;
+import org.pythonsogood.graph.Graph;
+import org.pythonsogood.graph.Vertex;
+import org.pythonsogood.interfaces.MSTAlgorithm;
 
-public class Prim {
-	private static int operations = 0;
-
-	public static int getOperations() {
-		return operations;
-	}
-
-	public static List<Edge> mst(Graph graph) {
-		Prim.operations = 0;
+public class Prim extends MSTAlgorithm {
+	public List<Edge> mst(Graph graph) {
+		this.resetOperations();
 
 		int vertexCount = graph.vertices.size();
 
@@ -36,7 +30,7 @@ public class Prim {
 			matrix[v][u] = e.weight;
 		}
 
-		Prim.operations++;
+		this.operations++;
 
 		int[] parent = new int[vertexCount];
 		int[] key = new int[vertexCount];
@@ -51,9 +45,9 @@ public class Prim {
 		parent[0] = -1;
 
 		for (int count=0; count < vertexCount - 1; count++) {
-			int u = Prim.minKey(key, mstSet);
+			int u = this.minKey(key, mstSet);
 
-			Prim.operations++;
+			this.operations++;
 
 			if (u == -1) {
 				break;
@@ -61,10 +55,10 @@ public class Prim {
 
 			mstSet[u] = true;
 
-			Prim.operations++;
+			this.operations++;
 
 			for (int v=0; v<vertexCount; v++) {
-				Prim.operations++;
+				this.operations++;
 
 				if (matrix[u][v] == 0) {
 					continue;
@@ -74,10 +68,10 @@ public class Prim {
 					parent[v] = u;
 					key[v] = matrix[u][v];
 
-					Prim.operations++;
+					this.operations++;
 				}
 
-				Prim.operations += 2;
+				this.operations += 2;
 			}
 		}
 
@@ -95,7 +89,7 @@ public class Prim {
 		return mst;
 	}
 
-	private static int minKey(int key[], boolean mstSet[]) {
+	private int minKey(int key[], boolean mstSet[]) {
 		int min = Integer.MAX_VALUE;
 		int minIndex = -1;
 
@@ -105,7 +99,7 @@ public class Prim {
 				minIndex = v;
 			}
 
-			Prim.operations += 2;
+			this.operations += 2;
 		}
 
 		return minIndex;

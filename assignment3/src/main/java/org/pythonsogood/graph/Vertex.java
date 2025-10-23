@@ -1,4 +1,4 @@
-package org.pythonsogood;
+package org.pythonsogood.graph;
 
 public class Vertex {
 	public String name;

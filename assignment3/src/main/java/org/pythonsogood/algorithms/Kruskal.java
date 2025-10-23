@@ -1,23 +1,17 @@
 package org.pythonsogood.algorithms;
 
-import org.pythonsogood.Graph;
-import org.pythonsogood.Vertex;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.pythonsogood.Edge;
+import org.pythonsogood.graph.Edge;
+import org.pythonsogood.graph.Graph;
+import org.pythonsogood.graph.Vertex;
+import org.pythonsogood.interfaces.MSTAlgorithm;
 
-public class Kruskal {
-	private static int operations = 0;
-
-	public static int getOperations() {
-		return operations;
-	}
-
-	public static List<Edge> mst(Graph graph) {
-		Kruskal.operations = 0;
+public class Kruskal extends MSTAlgorithm {
+	public List<Edge> mst(Graph graph) {
+		this.resetOperations();
 
 		int vertexCount = graph.vertices.size();
 
@@ -30,7 +24,7 @@ public class Kruskal {
 
 		List<Edge> edges = new ArrayList<>(graph.edges);
 		edges.sort((Edge e1, Edge e2) -> {
-			Kruskal.operations++;
+			this.operations++;
 
 			return e1.weight - e2.weight;
 		});
@@ -56,7 +50,7 @@ public class Kruskal {
 		return mst;
 	}
 
-	public static class DSU {
+	private class DSU {
 		public int[] parent;
 		public int[] rank;
 
@@ -71,7 +65,7 @@ public class Kruskal {
 		}
 
 		public int find(int i) {
-			Kruskal.operations++;
+			Kruskal.this.operations++;
 
 			if (parent[i] != i) {
 				parent[i] = this.find(parent[i]);
@@ -81,7 +75,7 @@ public class Kruskal {
 		}
 
 		public void union(int x, int y) {
-			Kruskal.operations++;
+			Kruskal.this.operations++;
 
 			int s1 = this.find(x);
 			int s2 = this.find(y);
