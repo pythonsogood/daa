@@ -4,11 +4,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import org.pythonsogood.enums.GraphSize;
+import org.pythonsogood.generic.Range;
 import org.pythonsogood.graph.Edge;
 import org.pythonsogood.graph.Graph;
 import org.pythonsogood.graph.Vertex;
@@ -20,6 +24,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class Main {
+	static HashMap<GraphSize, Range<Integer>> GRAPH_SIZES = new HashMap<>(Map.of(
+		GraphSize.SMALL, new Range<>(4, 6),
+		GraphSize.MEDIUM, new Range<>(10, 15),
+		GraphSize.LARGE, new Range<>(20, 30)
+	));
+
 	private static boolean sample() throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -93,18 +103,32 @@ public class Main {
 		return new Graph(vertices, edges);
 	}
 
-	private static InputJson generateInputData(int graphCount) {
+	private static InputJson generateInputData(int graphCount, GraphSize size) {
 		List<GraphJson> graphs = new ArrayList<>();
 
+		Random rand = new Random();
+
+		Range<Integer> graphVertexRange = Main.GRAPH_SIZES.get(size);
+
 		for (int i=0; i<graphCount; i++) {
-			graphs.add(new GraphJson(i, Main.generateGraph(5, 5)));
+			int vertices = rand.nextInt(graphVertexRange.min, graphVertexRange.max);
+			int edges = rand.nextInt(100) < 90 ? rand.nextInt(vertices - 1, vertices + 10) : rand.nextInt(Math.max(vertices - 3, 0), vertices + 3);
+
+			graphs.add(new GraphJson(i, Main.generateGraph(vertices, edges)));
 		}
 
 		return new InputJson(graphs);
 	}
 
 	private static void generateData() throws IOException {
-		InputJson inputJson = Main.generateInputData(5);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+		Runner runner = new Runner();
+
+		InputJson smallInputJson = Main.generateInputData(5, GraphSize.SMALL);
+		OutputJson smallOutputJson = runner.runInput(smallInputJson);
+
+		InputJson mediumInputJson = Main.generateInputData(5, GraphSize.MEDIUM);
 	}
 
     public static void main(String[] args) throws IOException {
