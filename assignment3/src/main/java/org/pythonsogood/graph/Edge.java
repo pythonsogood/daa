@@ -29,7 +29,7 @@ public class Edge {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Edge edge) {
-			return ((edge.from.equals(this.from) && edge.to.equals(this.to)) || (edge.from.equals(this.to) && edge.to.equals(this.from)) && edge.weight == this.weight);
+			return ((edge.from.equals(this.from) && edge.to.equals(this.to)) || (edge.from.equals(this.to) && edge.to.equals(this.from))) && edge.weight == this.weight;
 		} else {
 			return false;
 		}

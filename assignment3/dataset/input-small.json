@@ -1,0 +1,171 @@
+{
+  "graphs": [
+    {
+      "id": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "edges": [
+        {
+          "from": "A",
+          "to": "B",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "edges": [
+        {
+          "from": "B",
+          "to": "A",
+          "weight": 6
+        },
+        {
+          "from": "D",
+          "to": "C",
+          "weight": 3
+        },
+        {
+          "from": "B",
+          "to": "E",
+          "weight": 2
+        },
+        {
+          "from": "E",
+          "to": "C",
+          "weight": 7
+        },
+        {
+          "from": "A",
+          "to": "E",
+          "weight": 4
+        },
+        {
+          "from": "C",
+          "to": "B",
+          "weight": 5
+        },
+        {
+          "from": "A",
+          "to": "C",
+          "weight": 2
+        },
+        {
+          "from": "D",
+          "to": "B",
+          "weight": 5
+        },
+        {
+          "from": "A",
+          "to": "D",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nodes": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "edges": [
+        {
+          "from": "C",
+          "to": "B",
+          "weight": 4
+        },
+        {
+          "from": "B",
+          "to": "D",
+          "weight": 3
+        },
+        {
+          "from": "D",
+          "to": "C",
+          "weight": 4
+        },
+        {
+          "from": "C",
+          "to": "A",
+          "weight": 2
+        },
+        {
+          "from": "A",
+          "to": "D",
+          "weight": 9
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "edges": [
+        {
+          "from": "A",
+          "to": "C",
+          "weight": 9
+        },
+        {
+          "from": "C",
+          "to": "D",
+          "weight": 8
+        },
+        {
+          "from": "B",
+          "to": "D",
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "edges": [
+        {
+          "from": "E",
+          "to": "D",
+          "weight": 3
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "weight": 2
+        },
+        {
+          "from": "B",
+          "to": "C",
+          "weight": 7
+        },
+        {
+          "from": "C",
+          "to": "A",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

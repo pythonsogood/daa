@@ -1,0 +1,6 @@
+graph_id,vertex_count,edge_count,prim_cost,kruskal_cost,prim_operations,kruskal_operations,prim_time,kruskal_time
+1,20,99,32,32,1595,664,0.033,0.0692
+2,26,28,78,81,1949,281,0.0269,0.0311
+3,25,27,82,84,1717,266,0.0249,0.0221
+4,26,27,91,91,2029,279,0.0275,0.1514
+5,29,251,36,36,3545,1888,0.0691,0.1343

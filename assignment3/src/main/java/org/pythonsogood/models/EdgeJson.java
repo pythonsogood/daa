@@ -29,7 +29,7 @@ public class EdgeJson {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof EdgeJson edgeJson) {
-			return ((edgeJson.from.equals(this.from) && edgeJson.to.equals(this.to)) || (edgeJson.from.equals(this.to) && edgeJson.to.equals(this.from)) && edgeJson.weight == this.weight);
+			return ((edgeJson.from.equals(this.from) && edgeJson.to.equals(this.to)) || (edgeJson.from.equals(this.to) && edgeJson.to.equals(this.from))) && edgeJson.weight == this.weight;
 		} else {
 			return false;
 		}
