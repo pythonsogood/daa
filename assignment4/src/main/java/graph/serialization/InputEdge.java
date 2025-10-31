@@ -1,4 +1,4 @@
-package org.pythonsogood.models;
+package graph.serialization;
 
 public class InputEdge {
 	public int u;

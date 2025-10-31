@@ -1,14 +1,14 @@
-package org.pythonsogood.graph;
+package graph.objects;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.pythonsogood.models.InputEdge;
-import org.pythonsogood.models.InputJson;
+import graph.serialization.InputEdge;
+import graph.serialization.InputJson;
 
 public class Graph {
-	public int vertices;
-	public List<Edge> edges;
+	public final int vertices;
+	public final List<Edge> edges;
 
 	public Graph(int vertices, List<Edge> edges) {
 		this.vertices = vertices;
@@ -18,10 +18,12 @@ public class Graph {
 	public Graph(List<Edge> edges) {
 		this.edges = edges;
 
-		this.vertices = 0;
+		int vertices = 0;
 		for (Edge edge : edges) {
-			this.vertices = Math.max(Math.max(edge.from, this.vertices), edge.to) + 1;
+			vertices = Math.max(Math.max(edge.from, vertices), edge.to) + 1;
 		}
+
+		this.vertices = vertices;
 	}
 
 	public Graph(InputJson inputJson) {
@@ -29,6 +31,10 @@ public class Graph {
 
 		for (InputEdge edgeJson : inputJson.edges) {
 			edges.add(new Edge(edgeJson));
+
+			if (!inputJson.directed) {
+				edges.add(new Edge(edgeJson.v, edgeJson.u, edgeJson.w));
+			}
 		}
 
 		this.vertices = inputJson.n;
@@ -43,6 +49,16 @@ public class Graph {
 		}
 
 		return new Graph(this.vertices, edges);
+	}
+
+	public Integer[][] adjacencyArray() {
+		Integer[][] adj = new Integer[this.vertices][this.vertices];
+
+		for (Edge edge : this.edges) {
+			adj[edge.from][edge.to] = edge.weight;
+		}
+
+		return adj;
 	}
 
 	@Override

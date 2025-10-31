@@ -1,18 +1,22 @@
-package org.pythonsogood.graph;
+package graph.objects;
 
-import java.util.List;
-
-import org.pythonsogood.models.InputEdge;
+import graph.serialization.InputEdge;
 
 public class Edge {
-	public int from;
-	public int to;
-	public int weight;
+	public final int from;
+	public final int to;
+	public final int weight;
 
 	public Edge(int from, int to, int weight) {
 		this.from = from;
 		this.to = to;
 		this.weight = weight;
+	}
+
+	public Edge(int from, int to) {
+		this.from = from;
+		this.to = to;
+		this.weight = 0;
 	}
 
 	public Edge(InputEdge edgeJson) {
@@ -27,6 +31,10 @@ public class Edge {
 
 	@Override
 	public String toString() {
+		if (this.weight == 0 && this.from != this.to) {
+			return String.format("%s -> %s", this.from, this.to);
+		}
+
 		return String.format("%s -> %s (%s)", this.from, this.to, this.weight);
 	}
 
@@ -37,15 +45,5 @@ public class Edge {
 		} else {
 			return false;
 		}
-	}
-
-	static public int getCost(List<Edge> edges) {
-		int cost = 0;
-
-		for (Edge e : edges) {
-			cost += e.weight;
-		}
-
-		return cost;
 	}
 }

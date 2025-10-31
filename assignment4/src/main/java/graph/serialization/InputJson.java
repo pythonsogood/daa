@@ -1,4 +1,4 @@
-package org.pythonsogood.models;
+package graph.serialization;
 
 import java.util.List;
 
