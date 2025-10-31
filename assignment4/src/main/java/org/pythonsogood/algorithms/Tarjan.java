@@ -78,6 +78,8 @@ public class Tarjan {
 			}
 		}
 
+		sccs.sort((a, b) -> a.get(0) - b.get(0));
+
 		return sccs;
 	}
 

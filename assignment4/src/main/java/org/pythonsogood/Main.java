@@ -3,6 +3,8 @@ package org.pythonsogood;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import org.pythonsogood.algorithms.DFSTopo;
+import org.pythonsogood.algorithms.Kosaraju;
 import org.pythonsogood.algorithms.Tarjan;
 import org.pythonsogood.graph.Graph;
 import org.pythonsogood.models.InputJson;
@@ -19,6 +21,9 @@ public class Main {
 
 		Graph graph = new Graph(inputJson);
 		System.out.println(Tarjan.SCC(graph));
+		System.out.println(Kosaraju.SCC(graph));
+
+		System.out.println(DFSTopo.sort(graph));
 	}
 
     public static void main(String[] args) throws FileNotFoundException {

@@ -21,6 +21,10 @@ public class Edge {
 		this.weight = edgeJson.w;
 	}
 
+	public Edge reversed() {
+		return new Edge(this.to, this.from, this.weight);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s -> %s (%s)", this.from, this.to, this.weight);

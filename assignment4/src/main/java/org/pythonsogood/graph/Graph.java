@@ -35,6 +35,16 @@ public class Graph {
 		this.edges = edges;
 	}
 
+	public Graph transposed() {
+		List<Edge> edges = new ArrayList<>();
+
+		for (Edge edge : this.edges) {
+			edges.add(edge.reversed());
+		}
+
+		return new Graph(this.vertices, edges);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s %s", this.vertices, this.edges);
