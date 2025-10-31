@@ -18,6 +18,7 @@ public class Main {
 		InputJson inputJson = gson.fromJson(inputFileReader, InputJson.class);
 
 		Graph graph = new Graph(inputJson);
+		System.out.println(Tarjan.SCC(graph));
 	}
 
     public static void main(String[] args) throws FileNotFoundException {
