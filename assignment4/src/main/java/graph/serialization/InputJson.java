@@ -8,4 +8,20 @@ public class InputJson {
 	public List<InputEdge> edges;
 	public int source;
 	public String weight_model;
+
+	public InputJson(boolean directed, int n, List<InputEdge> edges, int source, String weight_model) {
+		this.directed = directed;
+		this.n = n;
+		this.edges = edges;
+		this.source = source;
+		this.weight_model = weight_model;
+	}
+
+	public InputJson(int n, List<InputEdge> edges, int source) {
+		this.directed = true;
+		this.n = n;
+		this.edges = edges;
+		this.source = source;
+		this.weight_model = "edge";
+	}
 }

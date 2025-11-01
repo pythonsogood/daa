@@ -5,11 +5,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import graph.instrumentation.TimedMetrics;
 import graph.objects.CondensationGraph;
 import graph.objects.Graph;
 
 public class DFSTopo {
+	public static final TimedMetrics metrics = new TimedMetrics();
+	private static long elapsed;
+
+	public static long getElapsed() {
+		return elapsed;
+	}
+
 	private static void visit(int vertex, boolean[] visited, Integer[][] adj, Stack<Integer> stack) {
+		metrics.add("dfs");
+
 		visited[vertex] = true;
 
 		for (int u=0; u<adj[vertex].length; u++) {
@@ -18,10 +28,15 @@ public class DFSTopo {
 			}
 		}
 
+		metrics.add("push");
+
 		stack.push(vertex);
 	}
 
 	public static List<Integer> sort(Graph graph) {
+		metrics.startTimer();
+		metrics.reset();
+
 		Integer[][] adj = graph.adjacencyArray();
 		Stack<Integer> stack = new Stack<>();
 		boolean[] visited = new boolean[graph.vertices];
@@ -37,8 +52,12 @@ public class DFSTopo {
 		ArrayList<Integer> topo = new ArrayList<>();
 
 		while (!stack.empty()) {
+			metrics.add("pop");
+
 			topo.add(stack.pop());
 		}
+
+		elapsed = metrics.stopTimer();
 
 		return topo;
 	}

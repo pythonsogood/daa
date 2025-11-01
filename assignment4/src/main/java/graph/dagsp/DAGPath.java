@@ -3,15 +3,26 @@ package graph.dagsp;
 import java.util.Arrays;
 import java.util.List;
 
+import graph.instrumentation.TimedMetrics;
 import graph.objects.Graph;
 import graph.objects.Path;
 import graph.topo.DFSTopo;
 
 public class DAGPath {
+	public static final TimedMetrics metrics = new TimedMetrics();
+	private static long elapsed;
+
+	public static long getElapsed() {
+		return elapsed;
+	}
+
 	public static Path shortestPath(Graph graph, int source) {
 		if (source >= graph.vertices) {
 			throw new IllegalArgumentException("Source is out of range");
 		}
+
+		metrics.startTimer();
+		metrics.reset();
 
 		Integer[][] adj = graph.adjacencyArray();
 		List<Integer> topo = DFSTopo.sort(graph);
@@ -41,9 +52,13 @@ public class DAGPath {
 				if (dist[v] == -1 || dist[v] > dist[u] + adj[u][v]) {
 					dist[v] = dist[u] + adj[u][v];
 					prev[v] = u;
+
+					metrics.add("relaxation");
 				}
 			}
 		}
+
+		elapsed = metrics.stopTimer();
 
 		return new Path(dist, prev);
 	}
@@ -52,6 +67,9 @@ public class DAGPath {
 		if (source >= graph.vertices) {
 			throw new IllegalArgumentException("Source is out of range");
 		}
+
+		metrics.startTimer();
+		metrics.reset();
 
 		Integer[][] adj = graph.adjacencyArray();
 		List<Integer> topo = DFSTopo.sort(graph);
@@ -81,9 +99,13 @@ public class DAGPath {
 				if (dist[v] == -1 || dist[v] < dist[u] + adj[u][v]) {
 					dist[v] = dist[u] + adj[u][v];
 					prev[v] = u;
+
+					metrics.add("relaxation");
 				}
 			}
 		}
+
+		elapsed = metrics.stopTimer();
 
 		return new Path(dist, prev);
 	}

@@ -5,10 +5,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import graph.instrumentation.TimedMetrics;
 import graph.objects.Graph;
 
 public class Kosaraju {
+	public static final TimedMetrics metrics = new TimedMetrics();
+	private static long elapsed;
+
+	public static long getElapsed() {
+		return elapsed;
+	}
+
 	private static void dfs(int vertex, boolean[] visited, Stack<Integer> stack, Integer[][] adj) {
+		metrics.add("dfs");
+
 		visited[vertex] = true;
 
 		for (int i=0; i<adj.length; i++) {
@@ -21,6 +31,8 @@ public class Kosaraju {
 	}
 
 	private static void dfsT(int vertex, boolean[] visited, Integer[][] adj, List<Integer> scc) {
+		metrics.add("dfs");
+
 		visited[vertex] = true;
 
 		scc.add(vertex);
@@ -33,6 +45,9 @@ public class Kosaraju {
 	}
 
 	public static List<List<Integer>> scc(Graph graph) {
+		metrics.startTimer();
+		metrics.reset();
+
 		List<List<Integer>> sccs = new ArrayList<>();
 
 		Integer[][] adj = graph.adjacencyArray();
@@ -65,6 +80,8 @@ public class Kosaraju {
 		}
 
 		sccs.sort((a, b) -> a.get(0) - b.get(0));
+
+		elapsed = metrics.stopTimer();
 
 		return sccs;
 	}

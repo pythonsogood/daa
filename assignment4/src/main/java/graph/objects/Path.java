@@ -33,4 +33,9 @@ public class Path {
 
 		return paths;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("%s", this.construct());
+	}
 }
