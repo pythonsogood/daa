@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import graph.instrumentation.Runner;
 import graph.instrumentation.TimedOutput;
+import graph.objects.DAGSPath;
 import graph.objects.Edge;
 import graph.objects.Graph;
-import graph.objects.Path;
 
 public class DAGTest {
 	private Runner runner;
@@ -34,7 +34,7 @@ public class DAGTest {
 
 		Graph graph = new Graph(edges);
 
-		TimedOutput<Path> shortestPath = this.runner.shortestPath(graph, 0);
+		TimedOutput<DAGSPath> shortestPath = this.runner.shortestPath(graph, 0);
 		List<List<Integer>> constructedPaths = shortestPath.output.construct();
 
 		assertEquals(3, shortestPath.output.distances[2], "Shortest distance to node 2 must be 3");
@@ -52,7 +52,7 @@ public class DAGTest {
 
 		Graph graph = new Graph(edges);
 
-		TimedOutput<Path> longestPath = this.runner.longestPath(graph, 0);
+		TimedOutput<DAGSPath> longestPath = this.runner.longestPath(graph, 0);
 		List<List<Integer>> constructedPaths = longestPath.output.construct();
 
 		assertEquals(12, longestPath.output.distances[2], "Longest distance to node 2 must be 12");
@@ -64,7 +64,7 @@ public class DAGTest {
 		// 4 isolated nodes
 		Graph graph = new Graph(4, new ArrayList<>());
 
-		TimedOutput<Path> shortestPath = this.runner.shortestPath(graph, 0);
+		TimedOutput<DAGSPath> shortestPath = this.runner.shortestPath(graph, 0);
 		List<List<Integer>> constructedPaths = shortestPath.output.construct();
 
 		assertEquals(-1, shortestPath.output.distances[1], "Node 1 must be unreachable (-1)");

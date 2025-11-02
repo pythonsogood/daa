@@ -5,7 +5,7 @@ import java.util.List;
 import graph.dagsp.DAGPath;
 import graph.objects.CondensationGraph;
 import graph.objects.Graph;
-import graph.objects.Path;
+import graph.objects.DAGSPath;
 import graph.scc.Kosaraju;
 import graph.topo.DFSTopo;
 
@@ -24,11 +24,11 @@ public class Runner {
 		return new TimedOutput<>(DFSTopo.sort(condensationGraph, decompress), DFSTopo.getElapsed());
 	}
 
-	public TimedOutput<Path> shortestPath(Graph graph, int source) {
+	public TimedOutput<DAGSPath> shortestPath(Graph graph, int source) {
 		return new TimedOutput<>(DAGPath.shortestPath(graph, source), DAGPath.getElapsed());
 	}
 
-	public TimedOutput<Path> longestPath(Graph graph, int source) {
+	public TimedOutput<DAGSPath> longestPath(Graph graph, int source) {
 		return new TimedOutput<>(DAGPath.longestPath(graph, source), DAGPath.getElapsed());
 	}
 }

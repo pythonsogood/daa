@@ -49,7 +49,7 @@ public class CondensationGraph {
 	}
 
 	public Graph toGraph() {
-		return new Graph(this.edges);
+		return new Graph(this.sccs.size(), this.edges);
 	}
 
 	@Override

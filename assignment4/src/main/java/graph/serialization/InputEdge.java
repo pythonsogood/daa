@@ -16,4 +16,9 @@ public class InputEdge {
 		this.v = v;
 		this.w = 0;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("%d %d %d", this.u, this.v, this.w);
+	}
 }

@@ -3,11 +3,11 @@ package graph.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Path {
+public class DAGSPath {
 	public final int[] distances;
 	public final int[] previous;
 
-	public Path(int[] distances, int[] previous) {
+	public DAGSPath(int[] distances, int[] previous) {
 		this.distances = distances;
 		this.previous = previous;
 	}

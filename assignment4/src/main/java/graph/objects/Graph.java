@@ -1,7 +1,9 @@
 package graph.objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import graph.serialization.InputEdge;
 import graph.serialization.InputJson;
@@ -51,11 +53,39 @@ public class Graph {
 		return new Graph(this.vertices, edges);
 	}
 
-	public Integer[][] adjacencyArray() {
+	public Integer[][] adjacencyMatrix() {
 		Integer[][] adj = new Integer[this.vertices][this.vertices];
 
 		for (Edge edge : this.edges) {
 			adj[edge.from][edge.to] = edge.weight;
+		}
+
+		return adj;
+	}
+
+	public Map<Integer, List<Integer>> adjacencyList() {
+		Map<Integer, List<Integer>> adj = new HashMap<>();
+
+		for (Edge edge : this.edges) {
+			adj.computeIfAbsent(edge.from, x -> new ArrayList<>()).add(edge.to);
+		}
+
+		for (int v=0; v<this.vertices; v++) {
+			adj.computeIfAbsent(v, x -> new ArrayList<>());
+		}
+
+		return adj;
+	}
+
+	public Map<Integer, List<Edge>> adjacencyListWeighted() {
+		Map<Integer, List<Edge>> adj = new HashMap<>();
+
+		for (Edge edge : this.edges) {
+			adj.computeIfAbsent(edge.from, x -> new ArrayList<>()).add(edge);
+		}
+
+		for (int v=0; v<this.vertices; v++) {
+			adj.computeIfAbsent(v, x -> new ArrayList<>());
 		}
 
 		return adj;

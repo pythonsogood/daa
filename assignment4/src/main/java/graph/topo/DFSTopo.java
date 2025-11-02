@@ -3,6 +3,7 @@ package graph.topo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import graph.instrumentation.TimedMetrics;
@@ -17,14 +18,14 @@ public class DFSTopo {
 		return elapsed;
 	}
 
-	private static void visit(int vertex, boolean[] visited, Integer[][] adj, Stack<Integer> stack) {
+	private static void visit(int vertex, boolean[] visited, Map<Integer, List<Integer>> adj, Stack<Integer> stack) {
 		metrics.add("dfs");
 
 		visited[vertex] = true;
 
-		for (int u=0; u<adj[vertex].length; u++) {
-			if (adj[vertex][u] != null && !visited[u]) {
-				DFSTopo.visit(u, visited, adj, stack);
+		for (Integer v : adj.get(vertex)) {
+			if (!visited[v]) {
+				DFSTopo.visit(v, visited, adj, stack);
 			}
 		}
 
@@ -37,7 +38,7 @@ public class DFSTopo {
 		metrics.startTimer();
 		metrics.reset();
 
-		Integer[][] adj = graph.adjacencyArray();
+		Map<Integer, List<Integer>> adj = graph.adjacencyList();
 		Stack<Integer> stack = new Stack<>();
 		boolean[] visited = new boolean[graph.vertices];
 

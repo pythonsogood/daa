@@ -3,6 +3,7 @@ package graph.scc;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import graph.instrumentation.TimedMetrics;
@@ -16,30 +17,32 @@ public class Kosaraju {
 		return elapsed;
 	}
 
-	private static void dfs(int vertex, boolean[] visited, Stack<Integer> stack, Integer[][] adj) {
+	private static void dfs(int vertex, boolean[] visited, Stack<Integer> stack, Map<Integer, List<Integer>> adj) {
 		metrics.add("dfs");
 
 		visited[vertex] = true;
 
-		for (int i=0; i<adj.length; i++) {
-			if (adj[vertex][i] != null && !visited[i]) {
-				Kosaraju.dfs(i, visited, stack, adj);
+		for (Integer v : adj.get(vertex)) {
+			if (!visited[v]) {
+				Kosaraju.dfs(v, visited, stack, adj);
 			}
 		}
+
+		metrics.add("push");
 
 		stack.push(vertex);
 	}
 
-	private static void dfsT(int vertex, boolean[] visited, Integer[][] adj, List<Integer> scc) {
+	private static void dfsT(int vertex, boolean[] visited, Map<Integer, List<Integer>> adj, List<Integer> scc) {
 		metrics.add("dfs");
 
 		visited[vertex] = true;
 
 		scc.add(vertex);
 
-		for (int i=0; i<adj.length; i++) {
-			if (adj[vertex][i] != null && !visited[i]) {
-				Kosaraju.dfsT(i, visited, adj, scc);
+		for (Integer v : adj.get(vertex)) {
+			if (!visited[v]) {
+				Kosaraju.dfsT(v, visited, adj, scc);
 			}
 		}
 	}
@@ -50,7 +53,7 @@ public class Kosaraju {
 
 		List<List<Integer>> sccs = new ArrayList<>();
 
-		Integer[][] adj = graph.adjacencyArray();
+		Map<Integer, List<Integer>> adj = graph.adjacencyList();
 		Stack<Integer> stack = new Stack<>();
 		boolean[] visited = new boolean[graph.vertices];
 
@@ -65,9 +68,11 @@ public class Kosaraju {
 		Arrays.fill(visited, false);
 
 		Graph transposed = graph.transposed();
-		Integer[][] adjT = transposed.adjacencyArray();
+		Map<Integer, List<Integer>> adjT = transposed.adjacencyList();
 
 		while (!stack.empty()) {
+			metrics.add("pop");
+
 			int v = stack.pop();
 			if (!visited[v]) {
 				List<Integer> scc = new ArrayList<>();

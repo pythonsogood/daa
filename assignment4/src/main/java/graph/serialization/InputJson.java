@@ -24,4 +24,15 @@ public class InputJson {
 		this.source = source;
 		this.weight_model = "edge";
 	}
+
+	@Override
+	public String toString() {
+		return "InputJson{" +
+				"directed=" + directed +
+				", n=" + n +
+				", edges=" + edges +
+				", source=" + source +
+				", weight_model='" + weight_model + '\'' +
+				'}';
+	}
 }
