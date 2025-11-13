@@ -1,0 +1,4 @@
+dataset,n,m,time
+small,10,5,5900
+medium,16,4,899
+long,55,8,1000

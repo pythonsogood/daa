@@ -1,0 +1,5 @@
+{
+	"text": "abcxabcdabxabcdabcdabcyabcdabcdabcyabcdabcxabcdabcdabcy",
+	"pattern": "abcdabcy",
+	"matches": [15, 27, 47]
+}

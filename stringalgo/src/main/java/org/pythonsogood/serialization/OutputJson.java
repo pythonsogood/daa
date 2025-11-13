@@ -12,4 +12,18 @@ public class OutputJson {
 		this.pattern = pattern;
 		this.matches = matches;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("%s %s in %s", this.matches, this.pattern, this.text);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof OutputJson outputJson) {
+			return outputJson.text.equals(this.text) && outputJson.pattern.equals(this.pattern) && outputJson.matches.equals(this.matches);
+		} else {
+			return false;
+		}
+	}
 }
